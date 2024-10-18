@@ -53,8 +53,8 @@ class ContactState extends State<Contact> {
                     return 'nama tidak boleh kosong';
                   }
 
-                  nama:
-                  value;
+                  nama = value;
+
                   return null;
                 },
               ),
