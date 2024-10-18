@@ -8,6 +8,10 @@ class Contact extends StatefulWidget {
 }
 
 class ContactState extends State<Contact> {
+  String nama = "";
+  String no = "";
+
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +26,7 @@ class ContactState extends State<Contact> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
+          key: formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -43,6 +48,15 @@ class ContactState extends State<Contact> {
                   ),
                   labelText: 'Nama Lengkap',
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'nama tidak boleh kosong';
+                  }
+
+                  nama:
+                  value;
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -54,10 +68,22 @@ class ContactState extends State<Contact> {
                   ),
                   labelText: 'Nomor',
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'nmoor tidak boleh kosong';
+                  }
+                  no = value;
+                  return null;
+                },
               ),
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
+                  if (formkey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('data berhasil disimpan')));
+                  }
+
                   // Aksi ketika tombol ditekan
                 },
                 style: ElevatedButton.styleFrom(
